@@ -72,6 +72,34 @@ func TestCredentialsProvider_Username(t *testing.T) {
 	}
 }
 
+func TestCredentialsProvider_UsernameInvalidInput(t *testing.T) {
+	t.Parallel()
+
+	// nolint: errcheck,gosec
+	expect := func(c *expect.Console) {
+		c.ExpectString("Enter username (input is hidden) > ")
+		c.Send("\033X")
+		c.SendLine("")
+		c.ExpectEOF()
+	}
+
+	expectedError := "error: could not read username {\"error\":{}}\n"
+
+	test.Run(t, expect, func(stdio terminal.Stdio) {
+		l := &ctxd.LoggerMock{}
+		p := credentials.New(
+			credentials.WithStdio(stdio),
+			credentials.WithLogger(l),
+		)
+
+		// 1st try: read from input.
+		result := p.Username()
+
+		assert.Empty(t, result)
+		assert.Equal(t, expectedError, l.String())
+	})
+}
+
 func TestCredentialsProvider_Password(t *testing.T) {
 	t.Parallel()
 
@@ -130,4 +158,32 @@ func TestCredentialsProvider_Password(t *testing.T) {
 			})
 		})
 	}
+}
+
+func TestCredentialsProvider_PasswordInvalidInput(t *testing.T) {
+	t.Parallel()
+
+	// nolint: errcheck,gosec
+	expect := func(c *expect.Console) {
+		c.ExpectString("Enter password (input is hidden) > ")
+		c.Send("\033X")
+		c.SendLine("")
+		c.ExpectEOF()
+	}
+
+	expectedError := "error: could not read password {\"error\":{}}\n"
+
+	test.Run(t, expect, func(stdio terminal.Stdio) {
+		l := &ctxd.LoggerMock{}
+		p := credentials.New(
+			credentials.WithStdio(stdio),
+			credentials.WithLogger(l),
+		)
+
+		// 1st try: read from input.
+		result := p.Password()
+
+		assert.Empty(t, result)
+		assert.Equal(t, expectedError, l.String())
+	})
 }
