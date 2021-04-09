@@ -70,7 +70,7 @@ func TestCredentialsProvider_UsernameInvalidInput(t *testing.T) {
 
 	s := surveymock.Mock(func(s *surveymock.Survey) {
 		s.ExpectPassword("Enter username (input is hidden) >").
-			Answer("\033X")
+			Answer("\033X").Interrupted()
 	})(t)
 
 	expectedError := "error: could not read username {\"error\":{}}\n"
@@ -149,7 +149,7 @@ func TestCredentialsProvider_PasswordInvalidInput(t *testing.T) {
 
 	s := surveymock.Mock(func(s *surveymock.Survey) {
 		s.ExpectPassword("Enter password (input is hidden) >").
-			Answer("\033X")
+			Answer("\033X").Interrupted()
 	})(t)
 
 	expectedError := "error: could not read password {\"error\":{}}\n"
