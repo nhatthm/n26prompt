@@ -4,12 +4,11 @@ import (
 	"testing"
 
 	"github.com/AlecAivazis/survey/v2/terminal"
-	expect "github.com/Netflix/go-expect"
 	"github.com/bool64/ctxd"
+	"github.com/nhatthm/surveymock"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/nhatthm/n26prompt/credentials"
-	"github.com/nhatthm/n26prompt/test"
 )
 
 func TestCredentialsProvider_Username(t *testing.T) {
@@ -17,32 +16,26 @@ func TestCredentialsProvider_Username(t *testing.T) {
 
 	testCases := []struct {
 		scenario       string
-		expect         func(c *expect.Console)
+		mockSurvey     surveymock.Mocker
 		expectedResult string
 	}{
 		{
 			scenario: "username is entered at the first time",
-			// nolint: errcheck,gosec
-			expect: func(c *expect.Console) {
-				c.ExpectString("Enter username (input is hidden) > ")
-				c.Send("username")
-				c.SendLine("")
-				c.ExpectEOF()
-			},
+			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+				s.ExpectPassword("Enter username (input is hidden) >").
+					Answer("username")
+			}),
 			expectedResult: "username",
 		},
 		{
 			scenario: "username is skipped at the first time and then entered",
-			// nolint: errcheck,gosec
-			expect: func(c *expect.Console) {
-				c.ExpectString("Enter username (input is hidden) > ")
-				c.SendLine("")
+			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+				s.ExpectPassword("Enter username (input is hidden) >").Times(3)
+
 				// Username is required, ask again.
-				c.ExpectString("Enter username (input is hidden) > ")
-				c.Send("username")
-				c.SendLine("")
-				c.ExpectEOF()
-			},
+				s.ExpectPassword("Enter username (input is hidden) >").
+					Answer("username")
+			}),
 			expectedResult: "username",
 		},
 	}
@@ -52,7 +45,7 @@ func TestCredentialsProvider_Username(t *testing.T) {
 		t.Run(tc.scenario, func(t *testing.T) {
 			t.Parallel()
 
-			test.Run(t, tc.expect, func(stdio terminal.Stdio) {
+			tc.mockSurvey(t).Start(func(stdio terminal.Stdio) {
 				p := credentials.New(
 					credentials.WithStdio(stdio),
 					credentials.WithLogger(ctxd.NoOpLogger{}),
@@ -75,17 +68,14 @@ func TestCredentialsProvider_Username(t *testing.T) {
 func TestCredentialsProvider_UsernameInvalidInput(t *testing.T) {
 	t.Parallel()
 
-	// nolint: errcheck,gosec
-	expect := func(c *expect.Console) {
-		c.ExpectString("Enter username (input is hidden) > ")
-		c.Send("\033X")
-		c.SendLine("")
-		c.ExpectEOF()
-	}
+	s := surveymock.Mock(func(s *surveymock.Survey) {
+		s.ExpectPassword("Enter username (input is hidden) >").
+			Answer("\033X")
+	})(t)
 
 	expectedError := "error: could not read username {\"error\":{}}\n"
 
-	test.Run(t, expect, func(stdio terminal.Stdio) {
+	s.Start(func(stdio terminal.Stdio) {
 		l := &ctxd.LoggerMock{}
 		p := credentials.New(
 			credentials.WithStdio(stdio),
@@ -105,32 +95,26 @@ func TestCredentialsProvider_Password(t *testing.T) {
 
 	testCases := []struct {
 		scenario       string
-		expect         func(c *expect.Console)
+		mockSurvey     surveymock.Mocker
 		expectedResult string
 	}{
 		{
 			scenario: "password is entered at the first time",
-			// nolint: errcheck,gosec
-			expect: func(c *expect.Console) {
-				c.ExpectString("Enter password (input is hidden) > ")
-				c.Send("password")
-				c.SendLine("")
-				c.ExpectEOF()
-			},
+			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+				s.ExpectPassword("Enter password (input is hidden) >").
+					Answer("password")
+			}),
 			expectedResult: "password",
 		},
 		{
 			scenario: "password is skipped at the first time and then entered",
-			// nolint: errcheck,gosec
-			expect: func(c *expect.Console) {
-				c.ExpectString("Enter password (input is hidden) > ")
-				c.SendLine("")
+			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+				s.ExpectPassword("Enter password (input is hidden) >").Times(3)
+
 				// Password is required, ask again.
-				c.ExpectString("Enter password (input is hidden) > ")
-				c.Send("password")
-				c.SendLine("")
-				c.ExpectEOF()
-			},
+				s.ExpectPassword("Enter password (input is hidden) >").
+					Answer("password")
+			}),
 			expectedResult: "password",
 		},
 	}
@@ -140,7 +124,7 @@ func TestCredentialsProvider_Password(t *testing.T) {
 		t.Run(tc.scenario, func(t *testing.T) {
 			t.Parallel()
 
-			test.Run(t, tc.expect, func(stdio terminal.Stdio) {
+			tc.mockSurvey(t).Start(func(stdio terminal.Stdio) {
 				p := credentials.New(
 					credentials.WithStdio(stdio),
 					credentials.WithLogger(ctxd.NoOpLogger{}),
@@ -163,17 +147,14 @@ func TestCredentialsProvider_Password(t *testing.T) {
 func TestCredentialsProvider_PasswordInvalidInput(t *testing.T) {
 	t.Parallel()
 
-	// nolint: errcheck,gosec
-	expect := func(c *expect.Console) {
-		c.ExpectString("Enter password (input is hidden) > ")
-		c.Send("\033X")
-		c.SendLine("")
-		c.ExpectEOF()
-	}
+	s := surveymock.Mock(func(s *surveymock.Survey) {
+		s.ExpectPassword("Enter password (input is hidden) >").
+			Answer("\033X")
+	})(t)
 
 	expectedError := "error: could not read password {\"error\":{}}\n"
 
-	test.Run(t, expect, func(stdio terminal.Stdio) {
+	s.Start(func(stdio terminal.Stdio) {
 		l := &ctxd.LoggerMock{}
 		p := credentials.New(
 			credentials.WithStdio(stdio),
