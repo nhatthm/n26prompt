@@ -8,8 +8,8 @@ import (
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/bool64/ctxd"
 	"github.com/nhatthm/n26api"
-	"github.com/nhatthm/surveymock"
-	surveycobra "github.com/nhatthm/surveymock/cobra"
+	"github.com/nhatthm/surveymock/options"
+	"github.com/nhatthm/surveymock/options/cobra"
 )
 
 var _ n26api.CredentialsProvider = (*Prompt)(nil)
@@ -87,14 +87,14 @@ func New(options ...Option) *Prompt {
 // WithStdio sets stdio for the prompts.
 func WithStdio(stdio terminal.Stdio) Option {
 	return func(p *Prompt) {
-		p.options = append(p.options, surveymock.WithStdio(stdio))
+		p.options = append(p.options, options.WithStdio(stdio))
 	}
 }
 
 // WithStdioProvider sets stdio for the prompts.
-func WithStdioProvider(stdio surveycobra.StdioProvider) Option {
+func WithStdioProvider(stdio cobra.StdioProvider) Option {
 	return func(p *Prompt) {
-		p.options = append(p.options, surveycobra.WithStdioProvider(stdio))
+		p.options = append(p.options, cobra.WithStdioProvider(stdio))
 	}
 }
 
