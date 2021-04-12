@@ -54,6 +54,8 @@ github.com/nhatthm/surveymock v0.3.0 h1:FqkmPa70Xhapz4T5zTc6Dn1qriENDM/dLVrJ4XxR
 github.com/nhatthm/surveymock v0.3.0/go.mod h1:F07H+/DzCasxuHgXSQf3JgaKkuC0PA3+hT1u8qFFjWw=
 github.com/nhatthm/surveymock v0.3.3 h1:BGhCoJrv+ZkPZn8iOJ1aFuvosk+924giMQnfFIIs6r4=
 github.com/nhatthm/surveymock v0.3.3/go.mod h1:F07H+/DzCasxuHgXSQf3JgaKkuC0PA3+hT1u8qFFjWw=
+github.com/nhatthm/surveymock v0.3.4 h1:nwtG5ErpMFWAy3mPMUSiFoxKoAyHNiXUNBUTktL1dZA=
+github.com/nhatthm/surveymock v0.3.4/go.mod h1:F07H+/DzCasxuHgXSQf3JgaKkuC0PA3+hT1u8qFFjWw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
