@@ -11,7 +11,7 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/nhatthm/go-clock v0.3.0 // indirect
 	github.com/nhatthm/n26api v0.2.7
-	github.com/nhatthm/surveyexpect v0.1.0
+	github.com/nhatthm/surveyexpect v0.1.1
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
 	golang.org/x/sys v0.0.0-20210414055047-fe65e336abe0 // indirect
