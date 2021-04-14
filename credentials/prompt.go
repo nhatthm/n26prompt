@@ -8,8 +8,8 @@ import (
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/bool64/ctxd"
 	"github.com/nhatthm/n26api"
-	"github.com/nhatthm/surveymock/options"
-	"github.com/nhatthm/surveymock/options/cobra"
+	"github.com/nhatthm/surveyexpect/options"
+	"github.com/nhatthm/surveyexpect/options/cobra"
 )
 
 var _ n26api.CredentialsProvider = (*Prompt)(nil)

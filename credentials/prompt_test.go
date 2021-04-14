@@ -5,7 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/bool64/ctxd"
-	"github.com/nhatthm/surveymock"
+	"github.com/nhatthm/surveyexpect"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/nhatthm/n26prompt/credentials"
@@ -16,12 +16,12 @@ func TestCredentialsProvider_Username(t *testing.T) {
 
 	testCases := []struct {
 		scenario       string
-		mockSurvey     surveymock.Mocker
+		mockSurvey     surveyexpect.Expector
 		expectedResult string
 	}{
 		{
 			scenario: "username is entered at the first time",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			mockSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectPassword("Enter username (input is hidden) >").
 					Answer("username")
 			}),
@@ -29,7 +29,7 @@ func TestCredentialsProvider_Username(t *testing.T) {
 		},
 		{
 			scenario: "username is skipped at the first time and then entered",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			mockSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectPassword("Enter username (input is hidden) >").Times(3)
 
 				// Username is required, ask again.
@@ -68,7 +68,7 @@ func TestCredentialsProvider_Username(t *testing.T) {
 func TestCredentialsProvider_UsernameInvalidInput(t *testing.T) {
 	t.Parallel()
 
-	s := surveymock.Mock(func(s *surveymock.Survey) {
+	s := surveyexpect.Expect(func(s *surveyexpect.Survey) {
 		s.ExpectPassword("Enter username (input is hidden) >").
 			Answer("\033X").Interrupted()
 	})(t)
@@ -95,12 +95,12 @@ func TestCredentialsProvider_Password(t *testing.T) {
 
 	testCases := []struct {
 		scenario       string
-		mockSurvey     surveymock.Mocker
+		mockSurvey     surveyexpect.Expector
 		expectedResult string
 	}{
 		{
 			scenario: "password is entered at the first time",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			mockSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectPassword("Enter password (input is hidden) >").
 					Answer("password")
 			}),
@@ -108,7 +108,7 @@ func TestCredentialsProvider_Password(t *testing.T) {
 		},
 		{
 			scenario: "password is skipped at the first time and then entered",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			mockSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectPassword("Enter password (input is hidden) >").Times(3)
 
 				// Password is required, ask again.
@@ -147,7 +147,7 @@ func TestCredentialsProvider_Password(t *testing.T) {
 func TestCredentialsProvider_PasswordInvalidInput(t *testing.T) {
 	t.Parallel()
 
-	s := surveymock.Mock(func(s *surveymock.Survey) {
+	s := surveyexpect.Expect(func(s *surveyexpect.Survey) {
 		s.ExpectPassword("Enter password (input is hidden) >").
 			Answer("\033X").Interrupted()
 	})(t)
