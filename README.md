@@ -1,5 +1,6 @@
 # Prompt Credentials Provider for N26 API Client
 
+[![GitHub Releases](https://img.shields.io/github/v/release/nhatthm/n26prompt)](https://github.com/nhatthm/n26prompt/releases/latest)
 [![Build Status](https://github.com/nhatthm/n26prompt/actions/workflows/test.yaml/badge.svg)](https://github.com/nhatthm/n26prompt/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/nhatthm/n26prompt/branch/master/graph/badge.svg?token=eTdAgDE2vR)](https://codecov.io/gh/nhatthm/n26prompt)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nhatthm/httpmock)](https://goreportcard.com/report/github.com/nhatthm/httpmock)
