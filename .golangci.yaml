@@ -20,28 +20,29 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - lll
-    - maligned
+    - exhaustivestruct
+    - forbidigo
+    - forcetypeassert
+    - gci
     - gochecknoglobals
     - gomnd
-    - wrapcheck
-    - paralleltest
-    - forbidigo
-    - exhaustivestruct
-    - interfacer
-    - forcetypeassert
     - ifshort
+    - interfacer
+    - lll
+    - maligned
+    - paralleltest
+    - scopelint
     - testpackage
-    - gci
+    - wrapcheck
 
 issues:
   exclude-use-default: false
   exclude-rules:
     - linters:
-        - gomnd
+        - dupl
+        - funlen
         - goconst
         - goerr113
+        - gomnd
         - noctx
-        - funlen
-        - dupl
       path: "_test.go"
