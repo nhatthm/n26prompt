@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
-	github.com/bool64/ctxd v1.0.0
+	github.com/bool64/ctxd v1.1.0
 	github.com/nhatthm/n26api v0.4.0
 	github.com/nhatthm/surveyexpect v0.6.1
 	github.com/stretchr/testify v1.7.0
@@ -12,7 +12,6 @@ require (
 
 require (
 	github.com/Netflix/go-expect v0.0.0-20211003183012-e1a7c020ce25 // indirect
-	github.com/bool64/dev v0.1.41 // indirect
 	github.com/creack/pty v1.1.17 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
