@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
-	github.com/bool64/ctxd v1.1.0
+	github.com/bool64/ctxd v1.1.2
 	github.com/nhatthm/n26api v0.4.0
 	github.com/nhatthm/surveyexpect v0.6.1
 	github.com/stretchr/testify v1.7.0
