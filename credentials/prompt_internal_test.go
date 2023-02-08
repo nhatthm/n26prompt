@@ -76,7 +76,7 @@ func TestWithStdioProvider(t *testing.T) {
 			result := &survey.AskOptions{}
 
 			for _, o := range p.options {
-				_ = o(result) // nolint: errcheck
+				_ = o(result) //nolint: errcheck
 			}
 
 			if tc.expected {
