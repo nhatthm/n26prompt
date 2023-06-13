@@ -3,7 +3,7 @@ module github.com/nhatthm/n26prompt
 go 1.20
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.3.6
+	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/bool64/ctxd v1.2.1
 	github.com/nhatthm/n26api v0.5.0
 	github.com/nhatthm/surveyexpect v0.7.0
